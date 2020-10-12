@@ -81,10 +81,8 @@ data.glm = function(df)
 
 # Training and testing data-----------------------------------------------------
 
-trainTest = function(df,seed)
+trainTest = function(df)
 {
-  set.seed(seed)
-  
   test.index = sample(c(1:dim(df)[1]), size = floor(.3*dim(df)[1]), replace = FALSE)
   
   assign("train.X", df[-test.index,], envir = .GlobalEnv)
@@ -186,18 +184,28 @@ qda.function = function(df,N)
 
 N = 50 # Number of data points times two
 p = 2  # Number of predictors
+s = cbind(seq(.1, 3, by = .1))
 
-data = data.generate(1,0,2,N,p)
-head(data)
-glmData = data.glm(data)
-glmData
+# kNN accuracy plot ------------------
+data = data.generate(1,0,0.3,N,p)
+determineK(train.X,test.X,train.Y)
+# Running through several variance values, the plot shows that the best value of
+# k is 3.
 
-trainTest(data,1)
-
-for (i in c(1:30))
+acckNN = c()
+for (i in c(1:length(s)))
 {
-  trainTest(data,i)
+  data = data.generate(1,0,s[i],N,p)
+  acc = c()
+  for (i in c(1:300))
+  {
+    trainTest(data)
+    a = kNNAccuracy(train.X,test.X,train.Y,3)
+    acc = c(acc,a)
+  }
+  acckNN = c(acckNN, mean(acc))
 }
+plot(s, acckNN, type = 'l', main='kNN', xlab='Variance', ylab='Accuracy')
 
 
 lda.function(data,N)
