@@ -23,11 +23,21 @@
 # Author(s): David Koster (djk)
 #            davidkoster@mail.weber.edu
 #            
-#            Jacelyn Villalobos
+#            Jacelyn Villalobos (jv)
 #            jacelynvillalobos@mail.weber.edu
+
+#            Kursten Reznik (kr)
+#            Bryce
+#            Jacob
 #
 # Modifications:
-# 8 Oct 2013 - 
+# 11 Oct 2020 - Added functions to generate data, create training and test data,
+#               calculate the best k value, and calculate the accuracy of the 
+#               kNN model. (djk) 
+# 12 Oct 2020 - LDA and QDA (jv). 
+# 12 Oct 2020 - Added code to loop through several variance values and to create 
+#               a plot of accuracy vs variance. (djk)
+# 
 #
 #-------------------------------------------------------------------------------
 
