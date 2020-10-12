@@ -46,10 +46,9 @@ library(pROC)
 
 # Data generation
 # Syntax - 
-# F(mean of 1s, mean of 2s, variance, 1/2 of data, predictors, scaled, glm)
-# NOTE: to do scaled and glm put a 1 for yes and 0 for no.
+# F(mean of 1s, mean of 2s, variance, 1/2 of data, predictors)
 
-data.generate = function(mu1, mu2, s, n, p, scaled)
+data.generate = function(mu1, mu2, s, n, p)
 {
   y = as.factor(c(rep(1,n), rep(2,n)))
   M = matrix(NA, nrow = 2*n, ncol = p, byrow = 1)
