@@ -192,11 +192,12 @@ qda.function = function(df,N)
 
 # Define parameters
 
-N = 50 # Number of data points times two
+N = 50 # Number of data points times two (i.e. N=50 is really N=100)
 p = 2  # Number of predictors
 s = cbind(seq(.1, 3, by = .1))
 
-# kNN accuracy plot ------------------
+# kNN accuracy plot -----------------------------------------------------------
+# Frirst we need to find the best value of k for our data sets.
 data = data.generate(1,0,0.3,N,p)
 determineK(train.X,test.X,train.Y)
 # Running through several variance values, the plot shows that the best value of
@@ -216,6 +217,7 @@ for (i in c(1:length(s)))
   acckNN = c(acckNN, mean(acc))
 }
 plot(s, acckNN, type = 'l', main='kNN', xlab='Variance', ylab='Accuracy')
+# looking at the plot of several iterations we find that the accuracy is high(>95%) 
 
 
 lda.function(data,N)
