@@ -120,8 +120,8 @@ for(i in s.values){
     lda.pred = predict(lda.fit, df[test.index,])
     lda.means = mean(lda.pred$class == df[test.index,'y'])
     lda.accuracy = c(lda.accuracy, lda.means)
-    lda.average = mean(lda.accuracy)
   }
+  lda.average = mean(lda.accuracy)
   lda.averages = c(lda.averages, lda.average)
 }
 
