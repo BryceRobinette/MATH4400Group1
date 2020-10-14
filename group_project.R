@@ -218,9 +218,9 @@ for (i in s.values){
     train.Y = df$y[-test.index]
     pred.knn = knn(train.X, test.X, train.Y, k = 5)
     knn.means = mean(pred.knn == test.Y)
-    knn.accuracy = c(knn.accuracy, knn.means)
-    knn.average = mean(knn.accuracy)
+    knn.accuracy = c(knn.accuracy, knn.means)  
   }
+  knn.average = mean(knn.accuracy)
   knn.averages = c(knn.averages, knn.average)
 }
 
