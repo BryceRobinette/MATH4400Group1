@@ -219,11 +219,53 @@ for (i in c(1:length(s)))
 plot(s, acckNN, type = 'l', main='kNN', xlab='Variance', ylab='Accuracy')
 # looking at the plot of several iterations we find that the accuracy is high(>95%) 
 
+# QDA ---------------------------------------------------------------
+s.values = seq(.1, 2, 0.1)
 
-lda.function(data,N)
-qda.function(data,N)
+qda.averages = c()
+for(i in s.values){
+  df = data.generate(1, 0, i, 50, 2)
+  qda.accuracy = c()
+  for (i in c(1:300)){
+    test.index = sample(c(1:dim(df)[1]), size = floor(.3*dim(df)[1]), replace = FALSE)
+    qda.fit = qda(y~.-y, data = df, subset = -test.index)
+    qda.pred = predict(qda.fit, df[test.index,])
+    qda.means = mean(qda.pred$class == df[test.index,'y'])
+    qda.accuracy = c(qda.accuracy, qda.means)
+  }
+  qda.average = mean(qda.accuracy)
+  qda.averages = c(qda.averages, qda.average)
+}
+
+qda.averages
+qda.plot = plot(s.values, qda.averages, type = 'l', main='QDA', xlab='Variance', 
+                ylab='Accuracy', col = "red")
 
 
+
+# GLM ----------------------------------------------------------------
+s.values = seq(0.1, 2, 0.1)
+glm.averages = c()
+
+for(i in s.values){
+  df = data.generate(1, 0, i, 500, 20)
+  df2 = data.glm(df)
+  glm.accuracy = c()
+  for (i in s.values){
+    test.index = sample(c(1:dim(df2)[1]), size = floor(.3*dim(df2)[1]), replace = FALSE)
+    glm.fits = glm(y~.-y, data = df2[-test.index,], family = binomial)
+    glm.probs = predict(glm.fits, df2[test.index,], type="response")
+    glm.pred = ifelse(glm.probs > .5 , "1", "0")
+    glm.means = mean(glm.pred == df2[test.index,'y'])
+    glm.accuracy = c(glm.accuracy, glm.means)
+    
+  }
+  glm.average = mean(glm.accuracy)
+  glm.averages = c(glm.averages, glm.average)
+}
+glm.averages
+glm.plot = plot(s.values, glm.averages, type = 'l', main='GLM', xlab='Variance', 
+                ylab='Accuracy', col = "blue")
 
 
 
