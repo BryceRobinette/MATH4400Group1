@@ -281,4 +281,4 @@ for (i in c(1:length(s)))
   acckNN = c(acckNN, mean(acc))
 }
 plot(s, acckNN, type = 'l', main='kNN', xlab='Variance', ylab='Accuracy')
-# looking at the plot of several iterations we find that the accuracy is high(>95%) 
+
