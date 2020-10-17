@@ -47,10 +47,8 @@ data.generate = function(mu1, mu2, s, n, p)
   {
     M[,i] = c(rnorm(n,mu1,s), rnorm(n,mu2,s))
   }
-  
   df = cbind(M,y)
   df = data.frame(df)
-  
   return(df)
 }
 
@@ -61,7 +59,6 @@ data.glm = function(df)
   newy = ifelse(df$y > median(df$y),1,0)
   df <- df[-ncol(df)]
   df$y <- newy
-  
   return(df)
 }
 
@@ -104,10 +101,10 @@ lda.plot = plot(s.values, lda.averages, type = 'l', main='LDA', xlab='Variance',
                 ylab='Accuracy', col = "blue")
 
 # QDA---------------------------------------------------------------------------
-s.values = seq(.1, 2, 0.1)
+s.values = seq(0.1, 2, 0.1)
 qda.averages = c()
 for(i in s.values){
-  df = data.generate(1, 0, i, 500, 20)
+  df = data.generate(1, 0, i, 50, 20)
   qda.accuracy = c()
   for (i in c(1:100)){
     test.index = sample(c(1:dim(df)[1]), size = floor(.3*dim(df)[1]), replace = FALSE)
@@ -167,7 +164,6 @@ determineK = function(train.X,test.X,train.Y)
     error = sum(knn.pred != test.Y)/length(test.Y) #error rate
     error.stored = c(error.stored,error)
   }
-  
   plot(k.values,error.stored, type = 'l')
 }
 
@@ -207,7 +203,6 @@ plot(s.values, knn.averages, type = 'l', main='KNN vs GLM', xlab='Variance',
 par(new=TRUE)
 plot(s.values, glm.averages, type = 'l', main='', xlab='Variance', 
      ylab='Accuracy', col = "red", axes=FALSE)
-
 
 #Combining all models onto one plot----------------------------------------------
 plot(s.values, knn.averages, type = 'l', main='All Models', xlab='Variance', 
