@@ -261,11 +261,34 @@ p = 2  # Number of predictors
 s = cbind(seq(.1, 3, by = .1))
 
 # kNN accuracy plot -----------------------------------------------------------
-# Frirst we need to find the best value of k for our data sets.
-data = data.generate(1,0,0.3,N,p)
-determineK(train.X,test.X,train.Y)
+# First we need to find the best value of k for our data sets.
+k.values = c(1:20)
+knn.averages = c()
+for (i in k.values)
+{
+  error.stored = c()
+  
+  for (j in c(1:10000))
+  {
+    data = data.generate(1,0,0.3,50,2)
+    scale(data[,-ncol(data)])
+    test.index = sample(c(1:dim(data)[1]), size = floor(.3*dim(data)[1]), replace = FALSE)
+    train.X = data[-test.index,]
+    test.X = data[test.index,]
+    test.Y = data$y[test.index]
+    train.Y = data$y[-test.index]
+    
+    knn.pred = knn(train.X,test.X,train.Y,k=i)
+    error = sum(knn.pred != test.Y)/length(test.Y) #error rate
+    error.stored = c(error.stored,error)
+  }
+  knn.average = mean(error.stored)
+  knn.averages = c(knn.averages, knn.average)
+}
+
+plot(k.values,knn.averages, type = 'l', xlab='k values', ylab='Error Rate')
 # Running through several variance values, the plot shows that the best value of
-# k is 3.
+# k is 3 or 4.
 
 acckNN = c()
 for (i in c(1:length(s)))
