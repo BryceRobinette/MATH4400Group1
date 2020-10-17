@@ -1,24 +1,9 @@
 #-------------------------------------------------------------------------------
 # G e n e r a l   I n f o r m a t i o n
 #-------------------------------------------------------------------------------
-# Name: 
+# Name: group_project.R
 #
-# Usage: 
-#
-# Description: 
-#
-# Inputs: 
-#
-# Outputs: 
-#
-# Auxiliary Files: 
-#
-# Special Instructions:  
-#
-#-------------------------------------------------------------------------------
-# C o d e   H i s t o r y
-#-------------------------------------------------------------------------------
-# Version: 1.0
+# Usage: To compare LDA, QDA, GLM, and kNN models using generated data sets.
 #
 # Author(s): David Koster (djk)
 #            davidkoster@mail.weber.edu
@@ -35,17 +20,6 @@
 #            Jacob Ruiz (jr)
 #            jacobruiz@mail.weber.edu
 #
-# Modifications:
-# 11 Oct 2020 - Added functions to generate data, create training and test data,
-#               calculate the best k value, and calculate the accuracy of the 
-#               kNN model. (djk) 
-# 12 Oct 2020 - LDA and QDA (jv). 
-# 12 Oct 2020 - Added code to loop through several variance values and to create 
-#               a plot of accuracy vs variance. (djk)
-# 
-#
-#-------------------------------------------------------------------------------
-
 #-------------------------------------------------------------------------------
 # I m p o r t   L i b r a r i e s
 #-------------------------------------------------------------------------------
